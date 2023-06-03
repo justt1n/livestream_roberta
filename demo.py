@@ -12,63 +12,25 @@ from tensorflow import keras
 from chat_downloader import ChatDownloader
 
 
-def LoadModel(model_id):
+def LoadModel():
   print("Loading model...")
   try:
-    if model_id == 1:
-      model = keras.models.load_model('bert.h5', custom_objects={"TFBertModel": transformers.TFBertModel})
-    else:
-      model = keras.models.load_model('roberta.h5', custom_objects={"TFRobertaModel": transformers.TFRobertaModel})
+    model = keras.models.load_model('roberta.h5', custom_objects={"TFRobertaModel": transformers.TFRobertaModel})
     print("Model loaded!")
     return model
   except:
     print("Can not load model!\nQuiting...")
     sys.exit(1)
 
-def LoadTokenizer(model_id):
+def LoadTokenizer():
   print("Loading tokenizer...")
   try:
-    if model_id == 1:
-      tokenizer = transformers.BertTokenizer.from_pretrained('bert-base-uncased')
-    else:
-      tokenizer = transformers.RobertaTokenizer.from_pretrained('roberta-base')
+    tokenizer = transformers.RobertaTokenizer.from_pretrained('roberta-base')
     print("Tokenizer Loaded!")
     return tokenizer
   except:
     sys.exit(2)
 
-# def strip_emoji(text):
-#     return re.sub(emoji.get_emoji_regexp(), r"", text) 
-
-# def clean_hashtags(tweet):
-#     new_tweet = " ".join(word.strip() for word in re.split('#(?!(?:hashtag)\b)[\w-]+(?=(?:\s+#[\w-]+)*\s*$)', tweet)) 
-#     new_tweet2 = " ".join(word.strip() for word in re.split('#|_', new_tweet)) 
-#     return new_tweet2
-
-# def filter_chars(a):
-#     sent = []
-#     for word in a.split(' '):
-#         if ('$' in word) | ('&' in word):
-#             sent.append('')
-#         else:
-#             sent.append(word)
-#     return ' '.join(sent)
-
-# def remove_mult_spaces(text): 
-#     return re.sub("\s\s+" , " ", text)
-
-# def strip_all_entities(text): 
-#     text = text.replace('\r', '').replace('\n', ' ').replace('\n', ' ').lower() #remove \n and \r and lowercase
-#     text = re.sub(r"(?:\@|https?\://)\S+", "", text) #remove links and mentions
-#     text = re.sub(r'[^\x00-\x7f]',r'', text) #remove non utf8/ascii characters such as '\x9a\x91\x97\x9a\x97'
-#     banned_list= string.punctuation + 'Ã'+'±'+'ã'+'¼'+'â'+'»'+'§'
-#     table = str.maketrans('', '', banned_list)
-#     text = text.translate(table)
-#     return text
-
-# def cleanText(text):
-#   print("Clean text...")
-#   return remove_mult_spaces(filter_chars(clean_hashtags(strip_all_entities(strip_emoji(text)))))
 
 def MessagePredict(str, model, tokenizer):
   MAX_LEN = 128
@@ -105,11 +67,9 @@ def MessagePredict(str, model, tokenizer):
   else:
     return "Positive"
   
-model_id = int(input("Chose model:\n1: BERT\n2: RoBERTa\nModel: "))
 
-model = LoadModel(model_id)
-tokenizer = LoadTokenizer(model_id)
-
+model = LoadModel()
+tokenizer = LoadTokenizer()
 
 
 url = str(input("Nhap url: "))
