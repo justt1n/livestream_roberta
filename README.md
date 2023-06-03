@@ -34,5 +34,7 @@ I will use it as a feature extractor for emotion classification. Fine-tune the R
 - Install requirement by this command: \
 `pip install -r requirements.txt `
 - Paste Youtube/Twitch url into the program
-- Press `Ctrl + C` to exit program. The csv file will be save after exit program.
+- Press `Ctrl + C` to exit program. The csv file will be save after exit program. \
+You can find demo video here:
+[Demo](https://www.youtube.com/watch?v=V5aAQyUTgVE&feature=youtu.be)
 
